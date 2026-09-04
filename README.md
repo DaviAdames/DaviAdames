@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/galaga-contribution-graph.svg" />
+<img src="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/galaga-contribution-graph.svg  " />
 </p>
 
 <h2><strong>Stack</strong></h3>

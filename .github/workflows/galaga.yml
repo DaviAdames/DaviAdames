@@ -25,12 +25,17 @@ jobs:
           github_user_name: DaviStarlight
           games: 'galaga'
 
+<<<<<<< HEAD
       - name: Apply JoJo color palette
+=======
+      - name: Apply custom color palette
+>>>>>>> 7b7d582 (feat(galaga): customize contribution and sprite colors)
         shell: python
         run: |
           from pathlib import Path
 
           # ==========================================================
+<<<<<<< HEAD
           # JoJo's Bizarre Adventure inspired palette
           # No black/white replacements are used to preserve
           # readability in both GitHub light and dark themes.
@@ -64,6 +69,59 @@ jobs:
           replacements = {
               **contribution_palette,
               **galaga_palette,
+=======
+          # Contribution graph
+          # Blue gradient based on contribution intensity.
+          # ==========================================================
+
+          contribution_colors = {
+              # Empty
+              "#ebedf0": "#0B1F3A",
+
+              # Low contribution
+              "#9be9a8": "#164E8C",
+
+              # Medium contribution
+              "#40c463": "#1D70B8",
+
+              # High contribution
+              "#30a14e": "#2589D8",
+
+              # Very high contribution
+              "#216e39": "#55B6F6",
+
+              # GitHub dark theme variants
+              "#161b22": "#0B1F3A",
+              "#0e4429": "#164E8C",
+              "#006d32": "#1D70B8",
+              "#26a641": "#2589D8",
+              "#39d353": "#55B6F6",
+          }
+
+          galaga_colors = {
+              # Red elements -> pink
+              "#ff0000": "#FF4FA3",
+
+              # Magenta elements -> stronger pink
+              "#ff00ff": "#E83E8C",
+
+              # Yellow elements -> soft pink
+              "#ffff00": "#FF77B7",
+
+              # Green elements -> pink
+              "#00ff00": "#FF5C9A",
+
+              # Cyan elements -> pink
+              "#00ffff": "#FF8AC4",
+
+              # Blue elements -> darker pink/magenta
+              "#0000ff": "#C72C78",
+          }
+
+          replacements = {
+              **contribution_colors,
+              **galaga_colors,
+>>>>>>> 7b7d582 (feat(galaga): customize contribution and sprite colors)
           }
 
           for svg_path in Path("dist").glob("galaga-contribution-graph*.svg"):
@@ -84,7 +142,11 @@ jobs:
                   encoding="utf-8"
               )
 
+<<<<<<< HEAD
               print(f"JoJo palette applied: {svg_path}")
+=======
+              print(f"Customized: {svg_path}")
+>>>>>>> 7b7d582 (feat(galaga): customize contribution and sprite colors)
 
       - name: Publish SVGs to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0

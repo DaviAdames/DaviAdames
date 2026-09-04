@@ -3,7 +3,9 @@ name: generate arcade contribution graphs
 on:
   schedule:
     - cron: '0 0 * * *'
+
   workflow_dispatch:
+
   push:
     branches:
       - main
@@ -12,17 +14,97 @@ jobs:
   generate:
     permissions:
       contents: write
+
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
-      - name: generate contribution graph SVGs
+      - name: Generate Galaga contribution graph
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: DaviStarlight
           games: 'galaga'
 
-      - name: push SVGs to the output branch
+      - name: Apply custom color palette
+        shell: python
+        run: |
+          from pathlib import Path
+
+          # ==========================================================
+          # Contribution graph
+          # Blue gradient based on contribution intensity.
+          # ==========================================================
+
+          contribution_colors = {
+              # Empty
+              "#ebedf0": "#0B1F3A",
+
+              # Low contribution
+              "#9be9a8": "#164E8C",
+
+              # Medium contribution
+              "#40c463": "#1D70B8",
+
+              # High contribution
+              "#30a14e": "#2589D8",
+
+              # Very high contribution
+              "#216e39": "#55B6F6",
+
+              # GitHub dark theme variants
+              "#161b22": "#0B1F3A",
+              "#0e4429": "#164E8C",
+              "#006d32": "#1D70B8",
+              "#26a641": "#2589D8",
+              "#39d353": "#55B6F6",
+          }
+
+          galaga_colors = {
+              # Red elements -> pink
+              "#ff0000": "#FF4FA3",
+
+              # Magenta elements -> stronger pink
+              "#ff00ff": "#E83E8C",
+
+              # Yellow elements -> soft pink
+              "#ffff00": "#FF77B7",
+
+              # Green elements -> pink
+              "#00ff00": "#FF5C9A",
+
+              # Cyan elements -> pink
+              "#00ffff": "#FF8AC4",
+
+              # Blue elements -> darker pink/magenta
+              "#0000ff": "#C72C78",
+          }
+
+          replacements = {
+              **contribution_colors,
+              **galaga_colors,
+          }
+
+          for svg_path in Path("dist").glob("galaga-contribution-graph*.svg"):
+              content = svg_path.read_text(encoding="utf-8")
+
+              for original, replacement in replacements.items():
+                  content = content.replace(
+                      original,
+                      replacement
+                  )
+                  content = content.replace(
+                      original.upper(),
+                      replacement
+                  )
+
+              svg_path.write_text(
+                  content,
+                  encoding="utf-8"
+              )
+
+              print(f"Customized: {svg_path}")
+
+      - name: Publish SVGs to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
