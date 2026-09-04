@@ -3,7 +3,9 @@ name: generate arcade contribution graphs
 on:
   schedule:
     - cron: '0 0 * * *'
+
   workflow_dispatch:
+
   push:
     branches:
       - main
@@ -12,17 +14,79 @@ jobs:
   generate:
     permissions:
       contents: write
+
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
     steps:
-      - name: generate contribution graph SVGs
+      - name: Generate Galaga contribution graph
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: DaviStarlight
           games: 'galaga'
 
-      - name: push SVGs to the output branch
+      - name: Apply JoJo color palette
+        shell: python
+        run: |
+          from pathlib import Path
+
+          # ==========================================================
+          # JoJo's Bizarre Adventure inspired palette
+          # No black/white replacements are used to preserve
+          # readability in both GitHub light and dark themes.
+          # ==========================================================
+
+          contribution_palette = {
+              # GitHub light theme
+              "#ebedf0": "#24113F",
+              "#9be9a8": "#5B21B6",
+              "#40c463": "#7C3AED",
+              "#30a14e": "#C026D3",
+              "#216e39": "#F59E0B",
+
+              # GitHub dark theme
+              "#161b22": "#24113F",
+              "#0e4429": "#5B21B6",
+              "#006d32": "#7C3AED",
+              "#26a641": "#C026D3",
+              "#39d353": "#F59E0B",
+          }
+
+          galaga_palette = {
+              "#ff0000": "#C026D3",
+              "#ffff00": "#F59E0B",
+              "#00ff00": "#39FF14",
+              "#00ffff": "#00AEEF",
+              "#0000ff": "#5B21B6",
+              "#ff00ff": "#E879F9",
+          }
+
+          replacements = {
+              **contribution_palette,
+              **galaga_palette,
+          }
+
+          for svg_path in Path("dist").glob("galaga-contribution-graph*.svg"):
+              content = svg_path.read_text(encoding="utf-8")
+
+              for original, replacement in replacements.items():
+                  content = content.replace(
+                      original,
+                      replacement
+                  )
+                  content = content.replace(
+                      original.upper(),
+                      replacement
+                  )
+
+              svg_path.write_text(
+                  content,
+                  encoding="utf-8"
+              )
+
+              print(f"JoJo palette applied: {svg_path}")
+
+      - name: Publish SVGs to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
