@@ -17,6 +17,6 @@
 </p>
 
 <p align="center">
-  <img src="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviStarlight&theme=github_dark&hide_border=true" />
-  <img src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviStarlight&layout=compact&theme=github_dark&hide_border=true" />
+  <img src="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github_dark&hide_border=true" />
+  <img src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github_dark&hide_border=true" />
 </p>
