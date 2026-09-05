@@ -22,7 +22,7 @@ jobs:
       - name: Generate Galaga contribution graph
         uses: abozanona/pacman-contribution-graph@main
         with:
-          github_user_name: DaviStarlight
+          github_user_name: DaviAdames
           games: 'galaga'
 
       - name: Apply custom blue and pink palette
