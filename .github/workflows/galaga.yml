@@ -1,4 +1,4 @@
-name: generate arcade contribution graphs
+name: generate pacman contribution graph
 
 on:
   schedule:
@@ -19,11 +19,12 @@ jobs:
     timeout-minutes: 20
 
     steps:
-      - name: Generate Galaga contribution graph
+      - name: Generate Pac-Man contribution graph
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: DaviAdames
-          games: 'galaga'
+          games: 'pacman'
+          player_style: 'opportunistic'
 
       - name: Apply custom blue and pink palette
         shell: python
@@ -32,7 +33,7 @@ jobs:
 
           # ==========================================================
           # Contribution colors
-          # Dark blue -> light blue according to contribution level
+          # Navy blue -> light blue according to contribution level
           # ==========================================================
 
           contribution_colors = {
@@ -52,25 +53,28 @@ jobs:
           }
 
           # ==========================================================
-          # Galaga colors
-          # Pink/magenta palette for the ship and projectiles
+          # Pac-Man colors
+          # Yellow Pac-Man + classic ghost palette
           # ==========================================================
 
-          galaga_colors = {
-              "#ff0000": "#FF4FA3",
-              "#ff00ff": "#E83E8C",
-              "#ffff00": "#FF77B7",
-              "#00ff00": "#FF5C9A",
-              "#00ffff": "#FF8AC4",
-              "#0000ff": "#C72C78",
+          pacman_colors = {
+              # Pac-Man
+              "#ffff00": "#FFD84D",
+
+              # Ghosts / arcade elements
+              "#ff0000": "#FF4B55",
+              "#00ffff": "#35D8FF",
+              "#ff69b4": "#FF6FAE",
+              "#ff8000": "#FF9D3D",
+              "#0000ff": "#5577FF",
           }
 
           replacements = {
               **contribution_colors,
-              **galaga_colors,
+              **pacman_colors,
           }
 
-          for svg_path in Path("dist").glob("galaga-contribution-graph*.svg"):
+          for svg_path in Path("dist").glob("pacman-contribution-graph*.svg"):
               content = svg_path.read_text(encoding="utf-8")
 
               for original, replacement in replacements.items():
