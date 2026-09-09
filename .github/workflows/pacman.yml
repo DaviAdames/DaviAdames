@@ -1,4 +1,4 @@
-name: generate pacman contribution graph
+name: generate Pac-Man contribution graph
 
 on:
   schedule:
@@ -26,25 +26,29 @@ jobs:
           games: 'pacman'
           player_style: 'opportunistic'
 
-      - name: Apply custom blue and pink palette
+      - name: Apply custom theme palettes
         shell: python
         run: |
           from pathlib import Path
 
           # ==========================================================
-          # Contribution colors
-          # Navy blue -> light blue according to contribution level
+          # Custom contribution palettes
+          #
+          # IMPORTANT:
+          # Light and dark SVGs are customized independently so the
+          # light version remains light and the dark version remains
+          # dark.
           # ==========================================================
 
-          contribution_colors = {
-              # GitHub light theme
-              "#ebedf0": "#0B1F3A",
-              "#9be9a8": "#164E8C",
-              "#40c463": "#1D70B8",
-              "#30a14e": "#2589D8",
-              "#216e39": "#55B6F6",
+          light_contribution_colors = {
+              "#ebedf0": "#E8EEF6",
+              "#9be9a8": "#B8D8F5",
+              "#40c463": "#6EADE7",
+              "#30a14e": "#3D91D1",
+              "#216e39": "#0F5FAF",
+          }
 
-              # GitHub dark theme
+          dark_contribution_colors = {
               "#161b22": "#0B1F3A",
               "#0e4429": "#164E8C",
               "#006d32": "#1D70B8",
@@ -53,28 +57,20 @@ jobs:
           }
 
           # ==========================================================
-          # Pac-Man colors
-          # Yellow Pac-Man + classic ghost palette
+          # Pac-Man arcade palette
+          # Applied to both themes.
           # ==========================================================
 
           pacman_colors = {
-              # Pac-Man
-              "#ffff00": "#FFD84D",
-
-              # Ghosts / arcade elements
               "#ff0000": "#FF4B55",
+              "#ff00ff": "#FF6FAE",
+              "#ffff00": "#FFD84D",
+              "#00ff00": "#55D68A",
               "#00ffff": "#35D8FF",
-              "#ff69b4": "#FF6FAE",
-              "#ff8000": "#FF9D3D",
               "#0000ff": "#5577FF",
           }
 
-          replacements = {
-              **contribution_colors,
-              **pacman_colors,
-          }
-
-          for svg_path in Path("dist").glob("pacman-contribution-graph*.svg"):
+          def apply_replacements(svg_path, replacements):
               content = svg_path.read_text(encoding="utf-8")
 
               for original, replacement in replacements.items():
@@ -93,6 +89,40 @@ jobs:
               )
 
               print(f"Customized: {svg_path}")
+
+          # ==========================================================
+          # Light theme
+          # ==========================================================
+
+          light_replacements = {
+              **light_contribution_colors,
+              **pacman_colors,
+          }
+
+          for svg_path in Path("dist").glob(
+              "pacman-contribution-graph.svg"
+          ):
+              apply_replacements(
+                  svg_path,
+                  light_replacements
+              )
+
+          # ==========================================================
+          # Dark theme
+          # ==========================================================
+
+          dark_replacements = {
+              **dark_contribution_colors,
+              **pacman_colors,
+          }
+
+          for svg_path in Path("dist").glob(
+              "pacman-contribution-graph-dark.svg"
+          ):
+              apply_replacements(
+                  svg_path,
+                  dark_replacements
+              )
 
       - name: Publish SVGs to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
