@@ -29,38 +29,38 @@ jobs:
 
     steps:
       - name: Generate Pac-Man
-        uses: abozanona/pacman-contribution-graph@v5.0.0
+        uses: abozanona/pacman-contribution-graph@v5.3.2
         with:
           github_user_name: DaviAdames
           games: 'pacman'
           player_style: 'opportunistic'
 
       - name: Generate Breakout
-        uses: abozanona/pacman-contribution-graph@v5.0.0
+        uses: abozanona/pacman-contribution-graph@v5.3.2
         with:
           github_user_name: DaviAdames
           games: 'breakout'
           player_style: 'opportunistic'
 
       - name: Generate Galaga
-        uses: abozanona/pacman-contribution-graph@v5.0.0
+        uses: abozanona/pacman-contribution-graph@v5.3.2
         with:
           github_user_name: DaviAdames
           games: 'galaga'
           player_style: 'opportunistic'
 
-      - name: Generate Puzzle Bobble
-        uses: abozanona/pacman-contribution-graph@v5.0.0
-        with:
-          github_user_name: DaviAdames
-          games: 'puzzle-bobble'
-          player_style: 'opportunistic'
-
       - name: Generate Bomberman
-        uses: abozanona/pacman-contribution-graph@v5.0.0
+        uses: abozanona/pacman-contribution-graph@v5.3.2
         with:
           github_user_name: DaviAdames
           games: 'bomberman'
+          player_style: 'opportunistic'
+
+      - name: Generate Minesweeper
+        uses: abozanona/pacman-contribution-graph@v5.3.2
+        with:
+          github_user_name: DaviAdames
+          games: 'minesweeper'
           player_style: 'opportunistic'
 
       - name: Apply custom palettes, fix Galaga light mode, and validate output
@@ -98,8 +98,8 @@ jobs:
               "pacman",
               "breakout",
               "galaga",
-              "puzzle-bobble",
               "bomberman",
+              "minesweeper",
           ]
 
           DIST = Path("dist")
@@ -129,7 +129,7 @@ jobs:
               # Some builds place the attributes in a different order.
               if background_count == 0:
                   content, _ = re.subn(
-                      r'(<rect\b[^>]*\bfill=["\'])#000000(["\'][^>]*\bwidth=["\']100%["\'][^>]*\bheight=["\']100%["\'][^>]*\/?>)',
+                      r'(<rect\b[^>]*\bfill=["\'])#000000(["\'][^>]*\bwidth=["\']100%["\'][^>]*\bheight=["\'][^>]*\/?>)',
                       r'\1#FFFFFF\2',
                       content,
                       count=1,
@@ -186,195 +186,7 @@ jobs:
                   + ", ".join(map(str, smart_files))
               )
 
-          forbidden = list(DIST.glob("*minesweeper*"))
-          if forbidden:
-              raise SystemExit(
-                  "Unexpected unsupported Minesweeper files found: "
-                  + ", ".join(map(str, forbidden))
-              )
-
           print(f"Validated {len(expected)} arcade SVG files.")
-
-      # ================================================================
-      # PUZZLE BOBBLE ONLY
-      # ================================================================
-      # The game can produce a very large frame history on dense
-      # contribution graphs. The upstream renderer stores the bubble
-      # trajectory frame-by-frame, which makes the SVG disproportionately
-      # heavy and slow to play.
-      #
-      # This step does NOT modify any other game.
-      # ================================================================
-      - name: Optimize Puzzle Bobble animation only
-        shell: python
-        run: |
-          from pathlib import Path
-          import re
-
-          DIST = Path("dist")
-
-          # Target playback duration for Puzzle Bobble.
-          # Shorter than very long simulations, but still slow enough
-          # to look like an actual shot instead of a slideshow.
-          TARGET_DURATION_MS = 20000
-
-          # Maximum number of position points for each fired bubble.
-          # The upstream renderer may create hundreds/thousands.
-          MAX_POSITION_KEYFRAMES = 96
-
-          def downsample_animation(key_times: str, values: str, max_points: int):
-              times = key_times.split(";")
-              vals = values.split(";")
-
-              if len(times) != len(vals):
-                  return key_times, values
-
-              if len(times) <= max_points:
-                  return key_times, values
-
-              count = len(times)
-
-              indexes = []
-              for i in range(max_points):
-                  index = round(i * (count - 1) / (max_points - 1))
-                  indexes.append(index)
-
-              new_times = [times[i] for i in indexes]
-              new_vals = [vals[i] for i in indexes]
-
-              return ";".join(new_times), ";".join(new_vals)
-
-          def optimize_puzzle_svg(svg_path: Path) -> None:
-              content = svg_path.read_text(encoding="utf-8")
-
-              original_size = len(content)
-
-              # ----------------------------------------------------------
-              # 1. Normalize ALL Puzzle Bobble animation durations.
-              # ----------------------------------------------------------
-              content = re.sub(
-                  r'\bdur=["\'][^"\']+?ms["\']',
-                  f'dur="{TARGET_DURATION_MS}ms"',
-                  content,
-              )
-
-              # ----------------------------------------------------------
-              # 2. Reduce only animateTransform trajectory keyframes.
-              #    These are the expensive frame-by-frame bubble flights.
-              # ----------------------------------------------------------
-              transform_pattern = re.compile(
-                  r'<animateTransform\b(?P<attrs>[^>]*)\/>',
-                  flags=re.DOTALL,
-              )
-
-              transform_count = 0
-              reduced_points = 0
-
-              def optimize_transform(match):
-                  nonlocal transform_count, reduced_points
-
-                  attrs = match.group("attrs")
-
-                  key_match = re.search(
-                      r'\bkeyTimes=["\']([^"\']*)["\']',
-                      attrs,
-                  )
-                  value_match = re.search(
-                      r'\bvalues=["\']([^"\']*)["\']',
-                      attrs,
-                  )
-
-                  if not key_match or not value_match:
-                      return match.group(0)
-
-                  key_times = key_match.group(1)
-                  values = value_match.group(1)
-
-                  old_count = len(key_times.split(";"))
-
-                  new_key_times, new_values = downsample_animation(
-                      key_times,
-                      values,
-                      MAX_POSITION_KEYFRAMES,
-                  )
-
-                  new_count = len(new_key_times.split(";"))
-
-                  if new_count < old_count:
-                      transform_count += 1
-                      reduced_points += old_count - new_count
-
-                  attrs = attrs.replace(
-                      key_match.group(0),
-                      f'keyTimes="{new_key_times}"',
-                  )
-
-                  attrs = attrs.replace(
-                      value_match.group(0),
-                      f'values="{new_values}"',
-                  )
-
-                  return f"<animateTransform{attrs}/>"
-
-              content = transform_pattern.sub(
-                  optimize_transform,
-                  content,
-              )
-
-              svg_path.write_text(content, encoding="utf-8")
-
-              final_size = len(content)
-              reduction = (
-                  100 * (1 - final_size / original_size)
-                  if original_size
-                  else 0
-              )
-
-              print(f"Optimized: {svg_path}")
-              print(f"Original size: {original_size:,} bytes")
-              print(f"Final size:    {final_size:,} bytes")
-              print(f"Reduction:     {reduction:.1f}%")
-              print(f"Transforms optimized: {transform_count}")
-              print(f"Trajectory points removed: {reduced_points:,}")
-
-          puzzle_files = [
-              DIST / "puzzle-bobble-contribution-graph.svg",
-              DIST / "puzzle-bobble-contribution-graph-dark.svg",
-          ]
-
-          for svg in puzzle_files:
-              if not svg.is_file() or svg.stat().st_size == 0:
-                  raise SystemExit(f"Missing Puzzle Bobble SVG: {svg}")
-
-              optimize_puzzle_svg(svg)
-
-          print("Puzzle Bobble optimization completed successfully.")
-
-      - name: Validate final output
-        shell: python
-        run: |
-          from pathlib import Path
-
-          DIST = Path("dist")
-
-          expected = [
-              DIST / "pacman-contribution-graph.svg",
-              DIST / "pacman-contribution-graph-dark.svg",
-              DIST / "breakout-contribution-graph.svg",
-              DIST / "breakout-contribution-graph-dark.svg",
-              DIST / "galaga-contribution-graph.svg",
-              DIST / "galaga-contribution-graph-dark.svg",
-              DIST / "puzzle-bobble-contribution-graph.svg",
-              DIST / "puzzle-bobble-contribution-graph-dark.svg",
-              DIST / "bomberman-contribution-graph.svg",
-              DIST / "bomberman-contribution-graph-dark.svg",
-          ]
-
-          for file in expected:
-              if not file.is_file() or file.stat().st_size == 0:
-                  raise SystemExit(f"Missing or empty final file: {file}")
-
-          print(f"Validated {len(expected)} final arcade SVG files.")
 
       - name: Publish SVGs to output branch
         uses: crazy-max/ghaction-github-pages@v5.0.0
