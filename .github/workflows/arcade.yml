@@ -10,6 +10,10 @@ on:
     branches:
       - main
 
+concurrency:
+  group: arcade-contribution-graphs
+  cancel-in-progress: true
+
 jobs:
   generate:
     permissions:
@@ -20,13 +24,13 @@ jobs:
 
     steps:
       - name: Generate Arcade Contribution Graphs
-        uses: abozanona/pacman-contribution-graph@main
+        uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
-          github_user_name: DaviAdames
+          github_user_name: ${{ github.repository_owner }}
           games: 'pacman,breakout,galaga,puzzle-bobble,bomberman,minesweeper'
           player_style: 'opportunistic'
 
-      - name: Apply custom palettes and build theme-aware links
+      - name: Apply custom palettes and validate output
         shell: python
         run: |
           from pathlib import Path
@@ -58,11 +62,60 @@ jobs:
 
           def apply_replacements(svg_path: Path, replacements: dict[str, str]) -> None:
               content = svg_path.read_text(encoding="utf-8")
+
               for original, replacement in replacements.items():
                   content = content.replace(original, replacement)
                   content = content.replace(original.upper(), replacement)
+
               svg_path.write_text(content, encoding="utf-8")
               print(f"Customized: {svg_path}")
+
+          def fix_galaga_light(svg_path: Path) -> None:
+              content = svg_path.read_text(encoding="utf-8")
+
+              # The upstream Galaga renderer uses a black canvas and white
+              # stars. That is fine for dark mode but wrong for light mode.
+              content = content.replace(
+                  '<rect width="100%" height="100%" fill="#000000"/>',
+                  '<rect width="100%" height="100%" fill="#FFFFFF"/>',
+                  1,
+              )
+
+              # Darken the starfield and labels so they remain visible.
+              content = content.replace(
+                  'fill="white" opacity=',
+                  'fill="#475569" opacity=',
+              )
+              content = content.replace(
+                  'fill="#aaaaaa">',
+                  'fill="#475569">',
+              )
+
+              # Give the player ship a darker treatment only in light mode.
+              if 'id="galagaLightShip"' not in content:
+                  marker = '<svg width="'
+                  filter = (
+                      '<defs>'
+                      '<filter id="galagaLightShip" x="-50%" y="-50%" width="200%" height="200%">'
+                      '<feColorMatrix type="saturate" values="0.25" />'
+                      '<feComponentTransfer>'
+                      '<feFuncR type="linear" slope="0.45" />'
+                      '<feFuncG type="linear" slope="0.45" />'
+                      '<feFuncB type="linear" slope="0.45" />'
+                      '</feComponentTransfer>'
+                      '</filter>'
+                      '</defs>'
+                  )
+                  content = content.replace(marker, marker + filter, 1)
+
+              content = content.replace(
+                  '<image x="-16" y="-35" width="32" height="35" href="',
+                  '<image filter="url(#galagaLightShip)" x="-16" y="-35" width="32" height="35" href="',
+                  1,
+              )
+
+              svg_path.write_text(content, encoding="utf-8")
+              print(f"Applied Galaga light-mode treatment: {svg_path}")
 
           games = [
               "pacman",
@@ -74,6 +127,8 @@ jobs:
           ]
 
           dist = Path("dist")
+
+          expected_files = []
 
           for game in games:
               light = dist / f"{game}-contribution-graph.svg"
@@ -91,32 +146,41 @@ jobs:
                       {**DARK_CONTRIBUTION_COLORS, **ARCADE_COLORS},
                   )
 
-              # One direct URL per game. The wrapper SVG switches between the
-              # generated light/dark results using prefers-color-scheme.
-              smart = dist / f"{game}-contribution-graph-smart.svg"
+              if game == "galaga" and light.exists():
+                  fix_galaga_light(light)
 
-              smart.write_text(
-                  f'''<svg xmlns="http://www.w3.org/2000/svg" width="1166" height="174" viewBox="0 0 1166 174">
-          <style>
-            .light {{ display: inline; }}
-            .dark {{ display: none; }}
-            @media (prefers-color-scheme: dark) {{
-              .light {{ display: none; }}
-              .dark {{ display: inline; }}
-            }}
-          </style>
-          <image class="light" href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/{game}-contribution-graph.svg" x="0" y="0" width="1166" height="174" preserveAspectRatio="xMidYMid meet" />
-          <image class="dark" href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/{game}-contribution-graph-dark.svg" x="0" y="0" width="1166" height="174" preserveAspectRatio="xMidYMid meet" />
-          </svg>\n''',
-                  encoding="utf-8",
+              expected_files.extend([light, dark])
+
+          missing = [
+              str(path)
+              for path in expected_files
+              if not path.is_file() or path.stat().st_size == 0
+          ]
+
+          if missing:
+              raise SystemExit(
+                  "Missing or empty generated SVGs: " + ", ".join(missing)
               )
 
-              print(f"Created theme-aware SVG: {smart}")
+          # Smart wrappers are intentionally forbidden: theme selection is
+          # handled by <picture> in README.md, not by nested SVGs.
+          smart_files = list(dist.glob("*-contribution-graph-smart.svg"))
+
+          if smart_files:
+              raise SystemExit(
+                  "Unexpected smart SVG files found: "
+                  + ", ".join(map(str, smart_files))
+              )
+
+          print(f"Validated {len(expected_files)} arcade SVG files.")
 
       - name: Publish SVGs to output branch
-        uses: crazy-max/ghaction-github-pages@v3.1.0
+        uses: crazy-max/ghaction-github-pages@v5.0.0
         with:
           target_branch: output
           build_dir: dist
+          keep_history: false
+          allow_empty_commit: false
+          jekyll: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

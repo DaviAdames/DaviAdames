@@ -1,58 +1,224 @@
-<p align="center">
-  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph-smart.svg">
+<details open>
+  <summary>
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=0B1220" />
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=F3F4F6" />
-      <img src="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=F3F4F6" alt="Pac-Man" />
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=0B1220"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=F3F4F6"
+      />
+      <img
+        src="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=F3F4F6"
+        alt="Pac-Man"
+      />
     </picture>
-  </a>
-  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/galaga-contribution-graph-smart.svg">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=0B1220" />
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=F3F4F6" />
-      <img src="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=F3F4F6" alt="Galaga" />
-    </picture>
-  </a>
-  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/breakout-contribution-graph-smart.svg">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=0B1220" />
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=F3F4F6" />
-      <img src="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=F3F4F6" alt="Breakout" />
-    </picture>
-  </a>
-</p>
+  </summary>
 
-<p align="center">
-  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/bomberman-contribution-graph-smart.svg">
+  <p align="center">
     <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=0B1220" />
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=F3F4F6" />
-      <img src="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=F3F4F6" alt="Bomberman" />
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph-dark.svg"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph.svg"
+      />
+      <img
+        src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph.svg"
+        alt="Pac-Man contribution graph"
+        width="100%"
+      />
     </picture>
-  </a>
-  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/minesweeper-contribution-graph-smart.svg">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=0B1220" />
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=F3F4F6" />
-      <img src="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=F3F4F6" alt="Minesweeper" />
-    </picture>
-  </a>
-  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/puzzle-bobble-contribution-graph-smart.svg">
-    <picture>
-      <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=0B1220" />
-      <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=F3F4F6" />
-      <img src="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=F3F4F6" alt="Puzzle Bobble" />
-    </picture>
-  </a>
-</p>
+  </p>
+</details>
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph-dark.svg?v=3" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph.svg?v=3" />
-    <img src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph.svg?v=3" alt="Pac-Man contribution graph" />
-  </picture>
-</p>
+<details>
+  <summary>
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=0B1220"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=F3F4F6"
+      />
+      <img
+        src="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=F3F4F6"
+        alt="Galaga"
+      />
+    </picture>
+  </summary>
+
+  <p align="center">
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/galaga-contribution-graph-dark.svg"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/galaga-contribution-graph.svg"
+      />
+      <img
+        src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/galaga-contribution-graph.svg"
+        alt="Galaga contribution graph"
+        width="100%"
+      />
+    </picture>
+  </p>
+</details>
+
+<details>
+  <summary>
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=0B1220"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=F3F4F6"
+      />
+      <img
+        src="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=F3F4F6"
+        alt="Breakout"
+      />
+    </picture>
+  </summary>
+
+  <p align="center">
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/breakout-contribution-graph-dark.svg"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/breakout-contribution-graph.svg"
+      />
+      <img
+        src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/breakout-contribution-graph.svg"
+        alt="Breakout contribution graph"
+        width="100%"
+      />
+    </picture>
+  </p>
+</details>
+
+<details>
+  <summary>
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=0B1220"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=F3F4F6"
+      />
+      <img
+        src="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=F3F4F6"
+        alt="Bomberman"
+      />
+    </picture>
+  </summary>
+
+  <p align="center">
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/bomberman-contribution-graph-dark.svg"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/bomberman-contribution-graph.svg"
+      />
+      <img
+        src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/bomberman-contribution-graph.svg"
+        alt="Bomberman contribution graph"
+        width="100%"
+      />
+    </picture>
+  </p>
+</details>
+
+<details>
+  <summary>
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=0B1220"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=F3F4F6"
+      />
+      <img
+        src="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=F3F4F6"
+        alt="Minesweeper"
+      />
+    </picture>
+  </summary>
+
+  <p align="center">
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/minesweeper-contribution-graph-dark.svg"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/minesweeper-contribution-graph.svg"
+      />
+      <img
+        src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/minesweeper-contribution-graph.svg"
+        alt="Minesweeper contribution graph"
+        width="100%"
+      />
+    </picture>
+  </p>
+</details>
+
+<details>
+  <summary>
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=0B1220"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=F3F4F6"
+      />
+      <img
+        src="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=F3F4F6"
+        alt="Puzzle Bobble"
+      />
+    </picture>
+  </summary>
+
+  <p align="center">
+    <picture>
+      <source
+        media="(prefers-color-scheme: dark)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/puzzle-bobble-contribution-graph-dark.svg"
+      />
+      <source
+        media="(prefers-color-scheme: light)"
+        srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/puzzle-bobble-contribution-graph.svg"
+      />
+      <img
+        src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/puzzle-bobble-contribution-graph.svg"
+        alt="Puzzle Bobble contribution graph"
+        width="100%"
+      />
+    </picture>
+  </p>
+</details>
 
 <h2><strong>Stack</strong></h2>
 
@@ -220,14 +386,32 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github_dark&hide_border=true" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github&hide_border=true" />
-    <img src="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github&hide_border=true" alt="GitHub Streak Stats" />
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github_dark&hide_border=true"
+    />
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github&hide_border=true"
+    />
+    <img
+      src="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github&hide_border=true"
+      alt="GitHub Streak Stats"
+    />
   </picture>
 
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github_dark&hide_border=true" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github&hide_border=true" />
-    <img src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github&hide_border=true" alt="Top Languages" />
+    <source
+      media="(prefers-color-scheme: dark)"
+      srcset="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github_dark&hide_border=true"
+    />
+    <source
+      media="(prefers-color-scheme: light)"
+      srcset="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github&hide_border=true"
+    />
+    <img
+      src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github&hide_border=true"
+      alt="Top Languages"
+    />
   </picture>
 </p>
