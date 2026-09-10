@@ -19,21 +19,55 @@ jobs:
     permissions:
       contents: write
 
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+
+    env:
+      # Each arcade game is generated in its own Node process below.
+      # This prevents one renderer from accumulating the memory of all games.
+      NODE_OPTIONS: --max-old-space-size=6144
 
     steps:
-      - name: Generate Arcade Contribution Graphs
+      - name: Generate Pac-Man
         uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
           github_user_name: ${{ github.repository_owner }}
-          games: 'pacman,breakout,galaga,puzzle-bobble,bomberman,minesweeper'
+          games: 'pacman'
           player_style: 'opportunistic'
 
-      - name: Apply custom palettes and validate output
+      - name: Generate Breakout
+        uses: abozanona/pacman-contribution-graph@v5.0.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          games: 'breakout'
+          player_style: 'opportunistic'
+
+      - name: Generate Galaga
+        uses: abozanona/pacman-contribution-graph@v5.0.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          games: 'galaga'
+          player_style: 'opportunistic'
+
+      - name: Generate Puzzle Bobble
+        uses: abozanona/pacman-contribution-graph@v5.0.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          games: 'puzzle-bobble'
+          player_style: 'opportunistic'
+
+      - name: Generate Bomberman
+        uses: abozanona/pacman-contribution-graph@v5.0.0
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          games: 'bomberman'
+          player_style: 'opportunistic'
+
+      - name: Apply custom palettes, fix Galaga light mode, and validate output
         shell: python
         run: |
           from pathlib import Path
+          import re
 
           LIGHT_CONTRIBUTION_COLORS = {
               "#ebedf0": "#E8EEF6",
@@ -60,7 +94,17 @@ jobs:
               "#0000ff": "#5577FF",
           }
 
-          def apply_replacements(svg_path: Path, replacements: dict[str, str]) -> None:
+          GAMES = [
+              "pacman",
+              "breakout",
+              "galaga",
+              "puzzle-bobble",
+              "bomberman",
+          ]
+
+          DIST = Path("dist")
+
+          def replace_colors(svg_path: Path, replacements: dict[str, str]) -> None:
               content = svg_path.read_text(encoding="utf-8")
 
               for original, replacement in replacements.items():
@@ -73,106 +117,83 @@ jobs:
           def fix_galaga_light(svg_path: Path) -> None:
               content = svg_path.read_text(encoding="utf-8")
 
-              # The upstream Galaga renderer uses a black canvas and white
-              # stars. That is fine for dark mode but wrong for light mode.
-              content = content.replace(
-                  '<rect width="100%" height="100%" fill="#000000"/>',
-                  '<rect width="100%" height="100%" fill="#FFFFFF"/>',
-                  1,
+              # Upstream Galaga uses a dark space canvas in both themes.
+              # Replace only the full-canvas background rectangle.
+              content, background_count = re.subn(
+                  r'(<rect\b[^>]*\bwidth=["\']100%["\'][^>]*\bheight=["\']100%["\'][^>]*\bfill=["\'])#(?:000000|000000)["\']',
+                  r'\1#FFFFFF"',
+                  content,
+                  count=1,
               )
 
-              # Darken the starfield and labels so they remain visible.
-              content = content.replace(
-                  'fill="white" opacity=',
-                  'fill="#475569" opacity=',
-              )
-              content = content.replace(
-                  'fill="#aaaaaa">',
-                  'fill="#475569">',
-              )
-
-              # Give the player ship a darker treatment only in light mode.
-              if 'id="galagaLightShip"' not in content:
-                  marker = '<svg width="'
-                  filter = (
-                      '<defs>'
-                      '<filter id="galagaLightShip" x="-50%" y="-50%" width="200%" height="200%">'
-                      '<feColorMatrix type="saturate" values="0.25" />'
-                      '<feComponentTransfer>'
-                      '<feFuncR type="linear" slope="0.45" />'
-                      '<feFuncG type="linear" slope="0.45" />'
-                      '<feFuncB type="linear" slope="0.45" />'
-                      '</feComponentTransfer>'
-                      '</filter>'
-                      '</defs>'
+              # Some builds place the attributes in a different order.
+              if background_count == 0:
+                  content, _ = re.subn(
+                      r'(<rect\b[^>]*\bfill=["\'])#000000(["\'][^>]*\bwidth=["\']100%["\'][^>]*\bheight=["\']100%["\'][^>]*\/?>)',
+                      r'\1#FFFFFF\2',
+                      content,
+                      count=1,
                   )
-                  content = content.replace(marker, marker + filter, 1)
 
-              content = content.replace(
-                  '<image x="-16" y="-35" width="32" height="35" href="',
-                  '<image filter="url(#galagaLightShip)" x="-16" y="-35" width="32" height="35" href="',
-                  1,
+              # White stars become muted/dark against the light canvas.
+              content = re.sub(
+                  r'(<(?:circle|rect)\b[^>]*\bfill=["\'])(?:white|#ffffff)(["\'])',
+                  r'\1#475569\2',
+                  content,
+              )
+
+              # Preserve readability for light-mode text labels.
+              content = re.sub(
+                  r'(<text\b[^>]*\bfill=["\'])(?:white|#ffffff)(["\'])',
+                  r'\1#334155\2',
+                  content,
               )
 
               svg_path.write_text(content, encoding="utf-8")
               print(f"Applied Galaga light-mode treatment: {svg_path}")
 
-          games = [
-              "pacman",
-              "breakout",
-              "galaga",
-              "puzzle-bobble",
-              "bomberman",
-              "minesweeper",
-          ]
+          expected = []
 
-          dist = Path("dist")
+          for game in GAMES:
+              light = DIST / f"{game}-contribution-graph.svg"
+              dark = DIST / f"{game}-contribution-graph-dark.svg"
 
-          expected_files = []
+              if not light.is_file() or light.stat().st_size == 0:
+                  raise SystemExit(f"Missing or empty: {light}")
 
-          for game in games:
-              light = dist / f"{game}-contribution-graph.svg"
-              dark = dist / f"{game}-contribution-graph-dark.svg"
+              if not dark.is_file() or dark.stat().st_size == 0:
+                  raise SystemExit(f"Missing or empty: {dark}")
 
-              if light.exists():
-                  apply_replacements(
-                      light,
-                      {**LIGHT_CONTRIBUTION_COLORS, **ARCADE_COLORS},
-                  )
-
-              if dark.exists():
-                  apply_replacements(
-                      dark,
-                      {**DARK_CONTRIBUTION_COLORS, **ARCADE_COLORS},
-                  )
-
-              if game == "galaga" and light.exists():
-                  fix_galaga_light(light)
-
-              expected_files.extend([light, dark])
-
-          missing = [
-              str(path)
-              for path in expected_files
-              if not path.is_file() or path.stat().st_size == 0
-          ]
-
-          if missing:
-              raise SystemExit(
-                  "Missing or empty generated SVGs: " + ", ".join(missing)
+              replace_colors(
+                  light,
+                  {**LIGHT_CONTRIBUTION_COLORS, **ARCADE_COLORS},
               )
 
-          # Smart wrappers are intentionally forbidden: theme selection is
-          # handled by <picture> in README.md, not by nested SVGs.
-          smart_files = list(dist.glob("*-contribution-graph-smart.svg"))
+              replace_colors(
+                  dark,
+                  {**DARK_CONTRIBUTION_COLORS, **ARCADE_COLORS},
+              )
 
+              if game == "galaga":
+                  fix_galaga_light(light)
+
+              expected.extend([light, dark])
+
+          smart_files = list(DIST.glob("*-contribution-graph-smart.svg"))
           if smart_files:
               raise SystemExit(
                   "Unexpected smart SVG files found: "
                   + ", ".join(map(str, smart_files))
               )
 
-          print(f"Validated {len(expected_files)} arcade SVG files.")
+          forbidden = list(DIST.glob("*minesweeper*"))
+          if forbidden:
+              raise SystemExit(
+                  "Unexpected unsupported Minesweeper files found: "
+                  + ", ".join(map(str, forbidden))
+              )
+
+          print(f"Validated {len(expected)} arcade SVG files.")
 
       - name: Publish SVGs to output branch
         uses: crazy-max/ghaction-github-pages@v5.0.0
