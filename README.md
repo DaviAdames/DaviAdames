@@ -1,19 +1,19 @@
 <p align="center">
-  <a href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/pacman-contribution-graph-smart.svg">
+  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph-smart.svg">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=0B1220" />
       <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=F3F4F6" />
       <img src="https://img.shields.io/badge/●%20PAC--MAN-NOW%20PLAYING-FFD84D?style=for-the-badge&labelColor=F3F4F6" alt="Pac-Man" />
     </picture>
   </a>
-  <a href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/galaga-contribution-graph-smart.svg">
+  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/galaga-contribution-graph-smart.svg">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=0B1220" />
       <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=F3F4F6" />
       <img src="https://img.shields.io/badge/🚀%20GALAGA-PLAY-7C5CFF?style=for-the-badge&labelColor=F3F4F6" alt="Galaga" />
     </picture>
   </a>
-  <a href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/breakout-contribution-graph-smart.svg">
+  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/breakout-contribution-graph-smart.svg">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=0B1220" />
       <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/🧱%20BREAKOUT-PLAY-FF6B35?style=for-the-badge&labelColor=F3F4F6" />
@@ -23,21 +23,21 @@
 </p>
 
 <p align="center">
-  <a href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/bomberman-contribution-graph-smart.svg">
+  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/bomberman-contribution-graph-smart.svg">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=0B1220" />
       <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=F3F4F6" />
       <img src="https://img.shields.io/badge/💣%20BOMBERMAN-PLAY-FF4B55?style=for-the-badge&labelColor=F3F4F6" alt="Bomberman" />
     </picture>
   </a>
-  <a href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/minesweeper-contribution-graph-smart.svg">
+  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/minesweeper-contribution-graph-smart.svg">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=0B1220" />
       <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=F3F4F6" />
       <img src="https://img.shields.io/badge/💠%20MINESWEEPER-PLAY-35D8FF?style=for-the-badge&labelColor=F3F4F6" alt="Minesweeper" />
     </picture>
   </a>
-  <a href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/puzzle-bobble-contribution-graph-smart.svg">
+  <a href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/puzzle-bobble-contribution-graph-smart.svg">
     <picture>
       <source media="(prefers-color-scheme: dark)" srcset="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=0B1220" />
       <source media="(prefers-color-scheme: light)" srcset="https://img.shields.io/badge/🫧%20PUZZLE%20BOBBLE-PLAY-55D68A?style=for-the-badge&labelColor=F3F4F6" />
@@ -48,9 +48,9 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/pacman-contribution-graph-dark.svg?v=3" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/pacman-contribution-graph.svg?v=3" />
-    <img src="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/pacman-contribution-graph.svg?v=3" alt="Pac-Man contribution graph" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph-dark.svg?v=3" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph.svg?v=3" />
+    <img src="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/pacman-contribution-graph.svg?v=3" alt="Pac-Man contribution graph" />
   </picture>
 </p>
 
