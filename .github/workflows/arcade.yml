@@ -105,8 +105,8 @@ jobs:
               .dark {{ display: inline; }}
             }}
           </style>
-          <image class="light" href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/{game}-contribution-graph.svg" x="0" y="0" width="1166" height="174" preserveAspectRatio="xMidYMid meet" />
-          <image class="dark" href="https://raw.githubusercontent.com/DaviStarlight/DaviStarlight/output/{game}-contribution-graph-dark.svg" x="0" y="0" width="1166" height="174" preserveAspectRatio="xMidYMid meet" />
+          <image class="light" href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/{game}-contribution-graph.svg" x="0" y="0" width="1166" height="174" preserveAspectRatio="xMidYMid meet" />
+          <image class="dark" href="https://raw.githubusercontent.com/DaviAdames/DaviAdames/output/{game}-contribution-graph-dark.svg" x="0" y="0" width="1166" height="174" preserveAspectRatio="xMidYMid meet" />
           </svg>\n''',
                   encoding="utf-8",
               )
