@@ -31,35 +31,35 @@ jobs:
       - name: Generate Pac-Man
         uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
-          github_user_name: ${{ github.repository_owner }}
+          github_user_name: DaviAdames
           games: 'pacman'
           player_style: 'opportunistic'
 
       - name: Generate Breakout
         uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
-          github_user_name: ${{ github.repository_owner }}
+          github_user_name: DaviAdames
           games: 'breakout'
           player_style: 'opportunistic'
 
       - name: Generate Galaga
         uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
-          github_user_name: ${{ github.repository_owner }}
+          github_user_name: DaviAdames
           games: 'galaga'
           player_style: 'opportunistic'
 
       - name: Generate Puzzle Bobble
         uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
-          github_user_name: ${{ github.repository_owner }}
+          github_user_name: DaviAdames
           games: 'puzzle-bobble'
           player_style: 'opportunistic'
 
       - name: Generate Bomberman
         uses: abozanona/pacman-contribution-graph@v5.0.0
         with:
-          github_user_name: ${{ github.repository_owner }}
+          github_user_name: DaviAdames
           games: 'bomberman'
           player_style: 'opportunistic'
 
