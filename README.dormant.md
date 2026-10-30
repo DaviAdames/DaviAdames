@@ -351,30 +351,15 @@
   <picture>
     <source
       media="(prefers-color-scheme: dark)"
-      srcset="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github_dark&hide_border=true"
+      srcset="https://streak-stats.demolab.com?user=DaviAdames&theme=sunset-gradient&hide_border=true&border_radius=70&timezone=GMT-3&short_numbers=true&date_format=j%2Fn%5B%2FY%5D"
     />
     <source
       media="(prefers-color-scheme: light)"
-      srcset="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github&hide_border=true"
+      srcset="https://streak-stats.demolab.com/?user=DaviAdames&theme=light&hide_border=true"
     />
     <img
-      src="https://github-readme-stats-fast.vercel.app/api/streak?username=DaviAdames&theme=github&hide_border=true"
+      src="https://streak-stats.demolab.com?user=DaviAdames&theme=sunset-gradient&hide_border=true&border_radius=70&timezone=GMT-3&short_numbers=true&date_format=j%2Fn%5B%2FY%5D"
       alt="GitHub Streak Stats"
-    />
-  </picture>
-
-  <picture>
-    <source
-      media="(prefers-color-scheme: dark)"
-      srcset="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github_dark&hide_border=true"
-    />
-    <source
-      media="(prefers-color-scheme: light)"
-      srcset="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github&hide_border=true"
-    />
-    <img
-      src="https://github-readme-stats-fast.vercel.app/api/top-langs/?username=DaviAdames&layout=compact&theme=github&hide_border=true"
-      alt="Top Languages"
     />
   </picture>
 </p>
